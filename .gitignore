@@ -13,6 +13,23 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.json
+*.txt
+*.zip
+.gradle
+.settings
+asm
+bin
+config
+crash-reports
+gradle
+libs
+logs
+mods
+resourcepacks
+saves
+VillageWiper
+world
 
 # Windows shortcuts
 *.lnk
