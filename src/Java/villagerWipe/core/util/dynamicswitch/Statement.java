@@ -14,25 +14,56 @@ public class Statement {
 	private String Name;
 	private Class Cl = null;
 
-	public void addCase(int IDx, final String Namex, final Class ClassName){
+	public void addCase(final int IDx, final String Namex, final Class ClassName){
 		switcher.addCaseCommand(IDx, new DynamicSwitchStatementCommand() {
 			@Override
 			public void execute() {
-				Utils.LOG_INFO("Adding "+Namex+" to Loaded Entity list.");
+				Utils.LOG_INFO("Adding "+Namex+" as selected Entity.");
 				Cl = ClassName;
+			}
+
+			@Override
+			public String checkName() {
+				return Namex;				
+			}
+
+			@Override
+			public int checkID() {
+				return IDx;
 			}
 		});
 	}
 
-	public void executeSwitch(String S){
-		
-		
-		for (int i = 1; i <= SwitchSize; i++) {
-			switcher.on(i);
+	private int checkSwitchStatements(String S){
+		System.out.println("Checking statements");
+		String Z = "";
+		int localID = 0;
+		while (!Z.equals(S)){
+			for (int i = 1; i <= SwitchSize; i++) {
+				Z = switcher.checkName(i);
+				System.out.println("Found "+Z+" whilst searching for "+S);
+				if (Z.equals(S)){
+					System.out.println("Found the ID of the list entry for "+S+". It is ID:"+i);
+					localID = i;
+					break;
+				}
+			}
+			if (Z.equals(S)){
+				System.out.println("Lookup Entity "+Z+" found whilst searching for "+S);
+				break;
+			}
 		}
+		
+		return localID;
+
 	}
-	
-}
+
+	public void executeSwitch(String S){
+		System.out.println("Running Switch");
+		int ENTITY_ID = checkSwitchStatements(S);
+		switcher.on(ENTITY_ID);
+		}
+	}	
 
 
 

@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class ExecuteSwitchStatement implements DynamicSwitchStatementCommand{
 	@Override public void execute() {}
+	@Override public String checkName() {return null;}
+	@Override public int checkID() {return 0;}
 }
 
 class Switcher {
@@ -41,5 +43,17 @@ class Switcher {
     	DynamicSwitchStatementCommand command = getCaseCommandByCaseId(caseId);
 
         command.execute();
+    }
+    
+    public String checkName(Integer caseId) {
+    	DynamicSwitchStatementCommand command = getCaseCommandByCaseId(caseId);
+
+        return command.checkName();
+    }
+    
+    public int checkID(Integer caseId) {
+    	DynamicSwitchStatementCommand command = getCaseCommandByCaseId(caseId);
+
+        return command.checkID();
     }
 }
