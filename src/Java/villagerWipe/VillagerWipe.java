@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import net.minecraftforge.common.MinecraftForge;
 import villagerWipe.core.commands.CommandMath;
+import villagerWipe.core.commands.CommandWipeNew;
 import villagerWipe.core.common.CommonProxy;
 import villagerWipe.core.lib.Strings;
 import villagerWipe.core.util.Utils;
@@ -64,6 +65,7 @@ implements ActionListener
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		event.registerServerCommand(new CommandMath());
+		event.registerServerCommand(new CommandWipeNew());
 		//event.registerServerCommand(new CommandXP());
 
 	}
