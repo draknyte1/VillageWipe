@@ -14,22 +14,47 @@ public class Statement {
 	private String Name;
 	private Class Cl = null;
 
+/*	public void addCase(final int IDx, final String Namex, final Class ClassName){
+		
+		switcher.addCaseCommand(IDx, new DynamicSwitchStatementCommand() {
+
+			@Override
+			public String execute(String S) {
+				if (S.equals("class")){
+					Utils.LOG_INFO("Adding "+Namex+" as selected Entity.");
+					Cl = ClassName;
+				}
+				else if (S.equals("name")){
+					//return null;
+				}
+				else if (S.equals("id")){
+					//return null;
+				}
+				else {
+					//return null;
+				}
+				return null;				
+			}			
+
+		});
+	}*/
+
 	public void addCase(final int IDx, final String Namex, final Class ClassName){
 		switcher.addCaseCommand(IDx, new DynamicSwitchStatementCommand() {
 			@Override
-			public void execute() {
-				Utils.LOG_INFO("Adding "+Namex+" as selected Entity.");
-				Cl = ClassName;
+			public String execute(String S) {
+				Utils.LOG_INFO("Scanning "+Namex+" as an Entity.");
+				return ClassName.getName();
 			}
 
 			@Override
-			public String checkName() {
-				return Namex;				
-			}
-
-			@Override
-			public int checkID() {
+			public int checkID(String S) {
 				return IDx;
+			}
+
+			@Override
+			public String checkName(Integer integer) {
+				return Namex;
 			}
 		});
 	}
@@ -38,9 +63,11 @@ public class Statement {
 		System.out.println("Checking statements");
 		String Z = "";
 		int localID = 0;
-		while (!Z.equals(S)){
-			for (int i = 1; i <= SwitchSize; i++) {
-				Z = switcher.checkName(i);
+		int i = 1;
+		while (!Z.toLowerCase().equals(S.toLowerCase()) && i <= SwitchSize){
+			for (i=1; i<=SwitchSize; i++) {
+				//Z = switcher.on(i, "name").toLowerCase();
+				Z = switcher.checkName(i).toLowerCase();
 				System.out.println("Found "+Z+" whilst searching for "+S);
 				if (Z.equals(S)){
 					System.out.println("Found the ID of the list entry for "+S+". It is ID:"+i);
@@ -53,17 +80,17 @@ public class Statement {
 				break;
 			}
 		}
-		
+
 		return localID;
 
 	}
 
-	public void executeSwitch(String S){
+	public String executeSwitch(String S){
 		System.out.println("Running Switch");
 		int ENTITY_ID = checkSwitchStatements(S);
-		switcher.on(ENTITY_ID);
-		}
-	}	
+		return switcher.on(ENTITY_ID, S);
+	}
+}	
 
 
 

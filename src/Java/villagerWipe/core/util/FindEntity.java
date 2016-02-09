@@ -54,7 +54,6 @@ public class FindEntity {
 			try {
 				ENTITY_CLASS = Class.forName(F2);
 				Utils.LOG_INFO("Found Entity with Class name: "+F2);
-				//Utils.LOG_INFO("Found Entity with Class name: "+ENTITY_CLASS);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,87 +63,24 @@ public class FindEntity {
 			loadedEntityList.addCase(itCount, ENTITY_NAME, ENTITY_CLASS);
 			
 			}
-		loadedEntityList.executeSwitch(Classname);
 		
-		/*switch(CN)
-		{
-		//Non-Passive Mobs
-		case "zombie" :
-			Cl = net.minecraft.entity.monster.EntityZombie.class;
-			break;
-		case "skeleton" :
-			Cl = net.minecraft.entity.monster.EntitySkeleton.class;
-			break;
-		case "witch" :
-			Cl = net.minecraft.entity.monster.EntityWitch.class;
-			break;
-		case "blaze" :
-			Cl = net.minecraft.entity.monster.EntityBlaze.class;
-			break;
-		case "cavespider" :
-			Cl = net.minecraft.entity.monster.EntityCaveSpider.class;
-			break;
-		case "creeper" :
-			Cl = net.minecraft.entity.monster.EntityCreeper.class;
-			break;
-		case "enderman" :
-			Cl = net.minecraft.entity.monster.EntityEnderman.class;
-			break;
-		case "ghast" :
-			Cl = net.minecraft.entity.monster.EntityGhast.class;
-			break;
-		case "irongolem" :
-			Cl = net.minecraft.entity.monster.EntityIronGolem.class;
-			break;
-		case "magmacube" :
-			Cl = net.minecraft.entity.monster.EntityMagmaCube.class;
-			break;
-		case "zombiepigman" :
-			Cl = net.minecraft.entity.monster.EntityPigZombie.class;
-			break;
-		case "silverfish" :
-			Cl = net.minecraft.entity.monster.EntitySilverfish.class;
-			break;
-		case "slime" :
-			Cl = net.minecraft.entity.monster.EntitySlime.class;
-			break;
-		case "spider" :
-			Cl = net.minecraft.entity.monster.EntitySpider.class;
-			break;
-		case "snowman" :
-			Cl = net.minecraft.entity.monster.EntitySnowman.class;
-			break;
-			//Passive Mobs
-		case "villager" :
-			Cl = net.minecraft.entity.passive.EntityVillager.class;
-			break;
-		case "chicken" :
-			Cl = net.minecraft.entity.passive.EntityChicken.class;
-			break;
-		case "cow" :
-			Cl = net.minecraft.entity.passive.EntityCow.class;
-			break;
-		case "horse" :
-			Cl = net.minecraft.entity.passive.EntityHorse.class;
-			break;
-		case "pig" :
-			Cl = net.minecraft.entity.passive.EntityPig.class;
-			break;
-		case "sheep" :
-			Cl = net.minecraft.entity.passive.EntitySheep.class;
-			break;
-		case "squid" :
-			Cl = net.minecraft.entity.passive.EntitySquid.class;
-			break;
-		case "wolf" :
-			Cl = net.minecraft.entity.passive.EntityWolf.class;
-			break;
-		default :
-			System.out.println("Invalid Entity Specified.");
-			Cl = null;
-			break;
-		}*/
-
+		try {
+			Cl = Class.forName(loadedEntityList.executeSwitch(CN));
+			Utils.LOG_INFO("Using Entity Class: "+Cl.getSimpleName());
+		} catch (NoSuchMethodError | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		if (Cl.equals(null)){
+			try {
+				Cl = Class.forName(loadedEntityList.executeSwitch(CN));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		
 		if (!Cl.equals(null)){
 			System.out.println("You're looking up: "+CN);
 			foundMobs = EntityFilter(P, W, Cl, Dis);
