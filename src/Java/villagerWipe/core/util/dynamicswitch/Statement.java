@@ -24,7 +24,7 @@ public class Statement {
 		});
 	}
 
-	public void executeSwitch(){
+	public void executeSwitch(String S){
 		for (int i = 1; i <= SwitchSize; i++) {
 			switcher.on(i);
 		}

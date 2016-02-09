@@ -24,6 +24,7 @@ public class FindEntity {
 	private static Class Cl = null;
 
 	public static boolean get(ICommandSender S, World W, String Classname, int Dis, int minDis){
+		//Vars
 		ArrayList<Entity> foundMobs = new ArrayList<Entity>();
 		ArrayList<EntityDataStorage> MobData = new ArrayList<EntityDataStorage>();
 		ArrayList<EntityDataStorage> checkingMobData = new ArrayList<EntityDataStorage>();
@@ -40,6 +41,8 @@ public class FindEntity {
 		Statement loadedEntityList = new Statement(loadedCount);
 		Iterator<Entry<String, String>> it = activeEntityList.iterator();
 		int itCount = 0;
+		
+		
 		while (it.hasNext()) { 
 			itCount++;
 			Entry<String, String> entry = it.next(); 
@@ -61,9 +64,9 @@ public class FindEntity {
 			loadedEntityList.addCase(itCount, ENTITY_NAME, ENTITY_CLASS);
 			
 			}
-		loadedEntityList.executeSwitch();
+		loadedEntityList.executeSwitch(Classname);
 		
-		switch(CN)
+		/*switch(CN)
 		{
 		//Non-Passive Mobs
 		case "zombie" :
@@ -140,7 +143,7 @@ public class FindEntity {
 			System.out.println("Invalid Entity Specified.");
 			Cl = null;
 			break;
-		}
+		}*/
 
 		if (!Cl.equals(null)){
 			System.out.println("You're looking up: "+CN);
