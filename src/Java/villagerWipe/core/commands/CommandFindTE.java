@@ -5,32 +5,27 @@ import java.util.List;
 
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import villagerWipe.core.util.FindEntity;
+import villagerWipe.core.util.FindTileEntity;
 import villagerWipe.core.util.Utils;
 
 
-public class CommandWipeNew implements ICommand
+public class CommandFindTE implements ICommand
 { 
 	private final List<String> aliases;
 
-	protected String fullEntityName; 
-	protected Entity conjuredEntity; 
 	private int Radius = 0;
-	private String mob;
-	private int minDis = 0;
 
-	public CommandWipeNew() 
+	public CommandFindTE() 
 	{ 
 		aliases = new ArrayList<String>(); 
 
-		aliases.add("findE"); 
+		aliases.add("findTE"); 
 
-		aliases.add("FE"); 
+		aliases.add("FTE"); 
 
 	} 
 
@@ -44,14 +39,14 @@ public class CommandWipeNew implements ICommand
 	@Override 
 	public String getCommandName() 
 	{ 
-		return "find"; 
+		return "findTE"; 
 
 	} 
 
 	@Override         
 	public String getCommandUsage(ICommandSender var1) 
 	{ 
-		return "/find [Wipe Distance] [Entity Name]"; 
+		return "/findTE [Wipe Distance] [Entity Name]"; 
 
 	} 
 
@@ -73,7 +68,7 @@ public class CommandWipeNew implements ICommand
 		if (MinecraftServer.getServer().getConfigurationManager().func_152596_g(P.getGameProfile())){
 			try {			  	
 				if (argString[0].equals(null) && argString.length <= 0){
-					Utils.sendChatToPlayer(P, "Please enter a number after the command");
+					Utils.sendChatToPlayer(P, "Please enter a number after the command, Running with 250m default.");
 					Radius = 250;
 					Utils.LOG_INFO("Setting value to 250 as default.");
 				}
@@ -85,7 +80,7 @@ public class CommandWipeNew implements ICommand
 							Radius = Integer.parseInt(commandValue);
 							Utils.LOG_INFO("Setting search radius value to "+Radius);
 						} catch (NumberFormatException e) {
-							Utils.sendChatToPlayer(P, "Please enter a number after the command");
+							Utils.sendChatToPlayer(P, "Please enter a number after the command, Running with 250m default.");
 							Radius = 250;
 							Utils.LOG_INFO("Setting value to 250 as default.");
 						}
@@ -96,68 +91,6 @@ public class CommandWipeNew implements ICommand
 					}
 				}
 
-				else {
-					//
-				}
-				
-				//Decode Entity Name
-				try {			  	
-					if (argString[1].equals(null) && argString.length <= 1){
-						//ERROR
-					}
-					else if (!argString[1].equals(null) || argString.length > 1){
-						String commandValue1 = argString[1];
-						if (!commandValue1.equals(null)){
-
-							try {
-								mob = commandValue1;
-								Utils.LOG_INFO("Setting Entity value to "+mob);
-							} catch (NumberFormatException e) {
-								Utils.sendChatToPlayer(P, "Please enter a name after the command");
-								//Radius = 250;
-								//Utils.LOG_INFO("Setting value to 250 as default.");
-							}
-							//Utils.LOG_INFO("Command Value: "+commandValue);
-						}
-						else if (commandValue1.equals(null)){
-							Utils.LOG_INFO("No Value Given.");
-						}
-					}
-					
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Utils.sendChatToPlayer(P, "Please enter a number after the command, do not leave it blank");
-					Utils.LOG_INFO("Please enter a number after the command, do not leave it blank");
-				}
-				
-				//minimum space between mobs
-				try {			  	
-					if (argString[2].equals(null) && argString.length <= 2){
-						return;
-					}
-					else if (!argString[2].equals(null) || argString.length > 2){
-						String commandValue1 = argString[2];
-						if (!commandValue1.equals(null)){
-
-							try {
-								minDis = Integer.parseInt(commandValue1);
-								Utils.LOG_INFO("Setting Minimum distance value to "+minDis);
-							} catch (NumberFormatException e) {
-								Utils.sendChatToPlayer(P, "Please enter a minimum entity space after the name");
-								//Radius = 250;
-								//Utils.LOG_INFO("Setting value to 250 as default.");
-							}
-							//Utils.LOG_INFO("Command Value: "+commandValue);
-						}
-						else if (commandValue1.equals(null)){
-							Utils.LOG_INFO("No Value Given.");
-						}
-					}
-					
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Utils.sendChatToPlayer(P, "Please enter a minimum entity space after the name");
-					Utils.LOG_INFO("Please enter a minimum entity space after the name");
-				}
-
 				if (W.isRemote) { 
 					Utils.LOG_INFO("Not processing on Client side"); 
 				} 
@@ -166,7 +99,7 @@ public class CommandWipeNew implements ICommand
 					ChunkCoordinates X = P.getPlayerCoordinates();
 					Utils.LOG_WARNING("Player Location: "+X);
 					 //Insert Code
-					FindEntity.get(S, W, mob, Radius, minDis);
+					FindTileEntity.get(S, W, Radius);
 					
 					
 				}
