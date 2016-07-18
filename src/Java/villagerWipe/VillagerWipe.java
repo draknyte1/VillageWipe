@@ -5,10 +5,8 @@ import java.awt.event.ActionListener;
 
 import net.minecraftforge.common.MinecraftForge;
 import villagerWipe.core.commands.CommandFindTE;
-import villagerWipe.core.commands.CommandWipeNew;
 import villagerWipe.core.common.CommonProxy;
 import villagerWipe.core.lib.Strings;
-import villagerWipe.core.util.Utils;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -27,7 +25,7 @@ implements ActionListener
 	@Mod.Instance(Strings.MODID)
 	public static VillagerWipe instance;
 
-	@SidedProxy(clientSide="villagerWipe.core.proxy.ClientProxy", serverSide="villagerWipe.core.proxy.ServerProxy")
+	@SidedProxy(clientSide="TEDUMPER.core.proxy.ClientProxy", serverSide="TEDUMPER.core.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
 
@@ -35,13 +33,7 @@ implements ActionListener
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		
-		//java.lang.reflect.Array.get(Materials, index)
-		Utils.LOG_INFO("Doing some house cleaning.");
 		proxy.preInit(event);
-
-
-
 	}
 
 	//Init
@@ -51,13 +43,11 @@ implements ActionListener
 		proxy.init(event);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
-		proxy.registerNetworkStuff();
 	}
 
 	//Post-Init
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		Utils.LOG_INFO("Tidying things up.");
 		proxy.postInit(event);
 	}
 
@@ -65,21 +55,15 @@ implements ActionListener
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		event.registerServerCommand(new CommandFindTE());
-		event.registerServerCommand(new CommandWipeNew());
-		//event.registerServerCommand(new CommandXP());
 
 	}
 
 	@Mod.EventHandler
-	public void serverStopping(FMLServerStoppingEvent event)
-	{
-
-
+	public void serverStopping(FMLServerStoppingEvent event){
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
 	}
 
 }

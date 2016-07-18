@@ -46,7 +46,7 @@ public class CommandFindTE implements ICommand
 	@Override         
 	public String getCommandUsage(ICommandSender var1) 
 	{ 
-		return "/findTE [Wipe Distance] [Entity Name]"; 
+		return "/findTE [Wipe Distance]"; 
 
 	} 
 
@@ -95,7 +95,7 @@ public class CommandFindTE implements ICommand
 					Utils.LOG_INFO("Not processing on Client side"); 
 				} 
 				else { 
-					Utils.LOG_INFO("Processing on Server side - Villager/RfTools Sequencer Wipe engaged by: "+P.getDisplayName()); 
+					Utils.LOG_INFO("Processing on Server side - Radial TileEntity Dump engaged by: "+P.getDisplayName()); 
 					ChunkCoordinates X = P.getPlayerCoordinates();
 					Utils.LOG_WARNING("Player Location: "+X);
 					 //Insert Code
