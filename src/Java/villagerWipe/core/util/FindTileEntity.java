@@ -22,10 +22,15 @@ public class FindTileEntity {
 		int mcChestsNearby = 0;
 		int mcSpawnersNearby = 0;
 		
+		int totalTEs = 0;
+		
 		if(entityplayer != null)
 		{
 			for (int i = 0; i <= xList.size() -1; i++) {
 				int ifCheck = (int) entityMath(entityplayer, (TileEntity) xList.get(i));
+				if(ifCheck <= Dis){
+					totalTEs++;
+				}
 				if(ifCheck <= Dis && !xList.get(i).getClass().getName().contains("mods.railcraft.common.blocks.hidden.TileHidden")){
 					Utils.LOG_INFO("Found "+xList.get(i)+", it was "+ifCheck+"m away.");
 				}
@@ -51,6 +56,7 @@ public class FindTileEntity {
 			Utils.LOG_INFO("Found "+forestryBeeHivesNearby+" Forestry Beehives");
 			Utils.LOG_INFO("Found "+mcChestsNearby+" Minecraft Chests");
 			Utils.LOG_INFO("Found "+mcSpawnersNearby+" Minecraft Spawners");
+			Utils.sendChatToPlayer(entityplayer, "Found "+totalTEs+" Tile Entities within a range of "+Dis+"m.");
 			
 		}
 		

@@ -25,7 +25,7 @@ implements ActionListener
 	@Mod.Instance(Strings.MODID)
 	public static VillagerWipe instance;
 
-	@SidedProxy(clientSide="TEDUMPER.core.proxy.ClientProxy", serverSide="TEDUMPER.core.proxy.ServerProxy")
+	@SidedProxy(clientSide="villagerWipe.core.proxy.ClientProxy", serverSide="villagerWipe.core.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
 

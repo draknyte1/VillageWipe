@@ -37,6 +37,6 @@ targetCompatibility = JavaVersion.VERSION_1_7
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-archivesBaseName = "VillagerWipe"
-version = "1.1"
+archivesBaseName = "TileEntityDumper"
+version = "1.0"
 minecraft.version = "1.7.10-10.13.4.1448-1.7.10"
